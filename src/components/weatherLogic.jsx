@@ -1,22 +1,70 @@
 import { useEffect } from "react";
-
-import WeatherForm from "./UserForm";
+import { useState } from "react";
+//import { useSearchContext } from "./weather.context";
 import "dotenv";
 
 export default function WeatherLogic() {
-  const city = WeatherForm.userLocation;// this is not right
-  
+  //Step 2 set up state
+  const [userLocation, setUserLocation] = useState("");
+  const [temp, setTemp] =useState("")
+
+  //3-Handle the changes
+  const handleInput = (event) => {
+    setUserLocation(event.target.value);
+  };
+
+  // //4- Submit the changes
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log(userLocation);
+  // };
+
+  // Below this line is the context code//
+
+  //   const {setSearchString} = useSearchContext();
+
+  // const handleInput = (e) => {
+  //   setSearchString(e.target.value);
+  //   console.log(setSearchString.prop)
+
+  // };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+
+  //     };
+
+  const getWeather =async(userLocation)=>{
+    const apiKey = import.meta.env.VITE_APP_API_KEY;
+    const res = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${userLocation}&appid=${apiKey}&units=metric`);
+      const json = await res.json()
+      console.log(json) 
+      // push the api results into here   
+  }
 
   useEffect(() => {
-    const apiKey = import.meta.env.VITE_APP_API_KEY;
-    fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`,
-      {
-        headers: { Accept: "application/json" },
-      }
+   
+   getWeather(userLocation);},[userLocation]
     );
-  });
-  return(
-    <h2>{city}</h2>
-  )
+
+  
+  return (
+    <>
+      <form className="weatherform">
+        <label>
+          Location
+          <input
+            type="text"
+            name="name"
+            value={userLocation}
+            onChange={handleInput}
+          />
+        </label>
+      
+      </form>
+      <h1>{userLocation}</h1>
+      <h2 temp={temp}></h2>
+    </>
+  );
 }
