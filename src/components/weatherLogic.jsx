@@ -6,7 +6,7 @@ import "dotenv";
 export default function WeatherLogic() {
   //Step 2 set up state
   const [userLocation, setUserLocation] = useState("");
-  const [temp, setTemp] =useState("")
+  const [temperature, setTemp] =useState("")
 
   //3-Handle the changes
   const handleInput = (event) => {
@@ -38,8 +38,9 @@ export default function WeatherLogic() {
     const apiKey = import.meta.env.VITE_APP_API_KEY;
     const res = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${userLocation}&appid=${apiKey}&units=metric`);
-      const json = await res.json()
-      console.log(json) 
+      const data = await res.json()
+      console.log(data.main.temp) 
+      setTemp(data.main.temp)
       // push the api results into here   
   }
 
@@ -64,7 +65,7 @@ export default function WeatherLogic() {
       
       </form>
       <h1>{userLocation}</h1>
-      <h2 temp={temp}></h2>
+      <h2>{temperature}°C</h2>
     </>
   );
 }
