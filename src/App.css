@@ -8,4 +8,13 @@ html,body{
   margin:0;
 }
 
-
+.info{
+  display:flex ;
+  flex-direction: column;
+  
+}
+.weatherForm{
+  justify-content: flex-start;
+  align-items: left;
+  align-content: left;
+}

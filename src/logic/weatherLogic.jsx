@@ -7,6 +7,7 @@ export default function WeatherLogic() {
   //Step 2 set up state
   const [userLocation, setUserLocation] = useState("");
   const [temperature, setTemp] =useState("")
+  const [weatherDescript, setWeatherDescript] = useState("")
 
   //3-Handle the changes
   const handleInput = (event) => {
@@ -39,8 +40,11 @@ export default function WeatherLogic() {
     const res = await fetch(
       `https://api.openweathermap.org/data/2.5/weather?q=${userLocation}&appid=${apiKey}&units=metric`);
       const data = await res.json()
-      console.log(data.main.temp) 
+      //console.log(data)
+      //console.log(data.main.temp) 
       setTemp(data.main.temp)
+      //console.log(data.weather[0].description) 
+      setWeatherDescript(data.weather[0].description)
       // push the api results into here   
   }
 
@@ -51,7 +55,7 @@ export default function WeatherLogic() {
 
   
   return (
-    <>
+    <div className= "info">
       <form className="weatherform">
         <label>
           Location
@@ -66,6 +70,7 @@ export default function WeatherLogic() {
       </form>
       <h1>{userLocation}</h1>
       <h2>{temperature}°C</h2>
-    </>
+      <h3>{weatherDescript}</h3>
+    </div>
   );
 }

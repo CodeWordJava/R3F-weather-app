@@ -8,7 +8,7 @@ import { Canvas } from '@react-three/fiber'
 //import WeatherForm from './components/UserForm'
 import Sunny from './weathermodels/sunny.jsx'
 import{ OrbitControls } from '@react-three/drei'
-import WeatherLogic from './components/weatherLogic'
+import WeatherLogic from './logic/weatherLogic'
 
 
 
